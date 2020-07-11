@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/master.html}">
+<head>
+<title>Giỏ hàng</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+	<div class="container">
+			<div class="row">
+				<div class="col card">
+					<h5 class="title">Thông tin khách hàng:</h5>
+					<ul>
+						<h6>
+							Tên: <span th:utext="${myCart.customerInfo.name}"></span>
+						</h6>
+						<h6>
+							Email: <span th:utext="${myCart.customerInfo.email}"></span>
+						</h6>
+						<h6>
+							Số điện thoại: <span th:utext="${myCart.customerInfo.phone}"></span>
+						</h6>
+						<h6>
+							Địa chỉ: <span th:utext="${myCart.customerInfo.address}"></span>
+						</h6>
+					</ul>
+				</div>
+				<div class="col card">
+					<h5>Tóm tắt giỏ hàng:</h5>
+					<ul>
+						<h6>
+							Số lượng: <span th:utext="${myCart.quantityTotal}"></span>
+						</h6>
+						<h6>
+							Tổng cộng: <span class="total"
+								th:utext="${#numbers.formatDecimal(myCart.amountTotal,3,2,'COMMA')}">
+							</span>$
+						</h6>
+					</ul>
+				</div>
+		</div>
+	</div>
+	<div class="container">
+	<form method="POST" th:action="@{/shoppingCartConfirmation}">
+	<div class='wrapper text-center'>
+					<div class="btn" role="group">
+		<!-- Edit Cart -->
+		<a class="btn btn-secondary" th:href="@{/shoppingCart}"> Chỉnh sửa giỏi hàng </a>
+		<!-- Edit Customer Info -->
+		<a class="btn btn-secondary" th:href="@{/shoppingCartCustomer}"> Chỉnh sửa thông tin nhận hàng </a>
+		<!-- Send/Save -->
+		<input type="submit" value="Mua hàng" class="btn btn-secondary" />
+		</div>
+		</div>
+	</form>
+	</div>
+	
+	<div class="container">
+		<div class="row mx-md-n3">
+					<div class="col-4 md-8 mb-5"
+			th:each="cartLineInfo : ${myCart.cartLines}">
+				<div class="card" style="width: max-2;">
+							<img class="card-img-top"
+								style="width: 100%; height: 20vw; object-fit: cover;"
+					th:src="@{|/productImage?code=${cartLineInfo.productInfo.code}|}" />
+				<div class="card-body">
+								<h5 class="card-title">Mã số: <span th:utext="${cartLineInfo.productInfo.code}"></span></h5>
+					<input type="hidden" name="code"
+					th:value="${cartLineInfo.productInfo.code}" />
+				<h5 class="card-title">Tên: <span th:utext="${cartLineInfo.productInfo.name}"></span></h5>
+				<h5 class="card-title">Giá: <span class="price"
+					th:utext="${#numbers.formatDecimal(cartLineInfo.productInfo.price,3,2,'COMMA')}">
+				</span>
+				</h5>
+				<h5 class="card-title">Số lượng: <span th:utext="${cartLineInfo.quantity}"></span></h5>
+				<h5 class="card-title">Tổng tiền: <span class="subtotal"
+					th:utext="${#numbers.formatDecimal(cartLineInfo.amount,3,2,'COMMA')}">
+				</span></h5>
+				</div>
+		</div>
+		</div>
+	</div>
+	</div>
+	</div>
+</body>
+</html>

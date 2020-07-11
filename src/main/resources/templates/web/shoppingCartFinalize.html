@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/master.html}">
+<head>
+<title>Giỏ hàng</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+	<div class="container text-center">
+		<h3>Cảm ơn bạn đã đặt hàng</h3>
+		<h5>
+			Mã số đặt hàng của bạn là: <span th:utext="${lastOrderedCart.orderNum}"></span>
+		</h5>
+		<h5>Hãy nhớ và liên hệ với chúng tôi nếu gặp sự cố</h5>
+		<img style="width: 100%; height: 50nw; object-fit: cover;"
+			th:src="@{/common/web/img/thank-you.png}" alt="Card image cap" />
+	</div>
+	<br>
+
+	</div>
+</body>
+</html>

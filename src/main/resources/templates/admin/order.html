@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/master.html}">
+<head>
+<title>Giỏ hàng</title>
+</head>
+
+<body><div layout:fragment="content">
+	<div class="container">
+		<div class="row">
+			<div class="col card">
+				<h5 class="title">Thông tin khách hàng:</h5>
+				<ul>
+					<h6>
+						Tên: <span th:utext="${orderInfo.customerName}"></span>
+					</h6>
+					<h6>
+						Email: <span th:utext="${orderInfo.customerEmail}"></span>
+					</h6>
+					<h6>
+						Số điện thoại: <span th:utext="${orderInfo.customerPhone}"></span>
+					</h6>
+					<h6>
+						Địa chỉ: <span th:utext="${orderInfo.customerAddress}"></span>
+					</h6>
+				</ul>
+			</div>
+			<div class="col card">
+				<h5>Tóm tắt giỏ hàng:</h5>
+				<ul>
+					<h6>
+						Tổng cộng: <span class="total"
+							th:utext="${#numbers.formatDecimal(orderInfo.amount,3,2,'COMMA')}">
+						</span>$
+					</h6>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="container">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th scope="col">Mã số sản phẩm</th>
+					<th scope="col">Tên sản phẩm</th>
+					<th scope="col">Số lượng</th>
+					<th scope="col">Giá cả</th>
+					<th scope="col">Tổng giá</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="orderDetailInfo : ${orderInfo.details}">
+					<td th:utext="${orderDetailInfo.productCode}"></td>
+					<td th:utext="${orderDetailInfo.productName}"></td>
+					<td th:utext="${orderDetailInfo.quanity}"></td>
+					<td
+						th:utext="${#numbers.formatDecimal(orderDetailInfo.price,3,2,'COMMA')}"></td>
+					<td
+						th:utext="${#numbers.formatDecimal(orderDetailInfo.amount,3,2,'COMMA')}"></td>
+				</tr>
+			</tbody>
+		</table>
+</div>
+</body>
+
+</html>

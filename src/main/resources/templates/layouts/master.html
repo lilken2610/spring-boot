@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Online</title>
+<link rel="icon" th:href="@{/common/web/img/icon.png}"
+	type="image/icon type">
+<!-- Bootstrap core CSS -->
+<link th:href="@{/common/web/vendor/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet" />
+
+<!-- Custom styles for this template -->
+<link rel="stylesheet" th:href="@{/common/web/css/small-business.css}" />
+
+</head>
+
+<body>
+	<th:block th:include="/commons/header"></th:block>
+	<th:block th:include="/commons/menu"></th:block>
+	<hr />
+	<!-- Page Content -->
+	<section>
+		<div layout:fragment="content"></div>
+	</section>
+	<hr/ >
+	<!-- Footer -->
+	<th:block th:include="/commons/footer"></th:block>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript"
+		th:href="@{/common/web/vendor/jquery/jquery.min.js}"></script>
+	<script type="text/javascript"
+		th:href="@{/common/web/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

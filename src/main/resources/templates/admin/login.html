@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/master.html}">
+<head>
+<title>Đăng nhập</title>
+</head>
+
+<body>
+	<div layout:fragment="content">
+	<div class="login-container wrapper text-center">
+		<th:block
+			th:if="${#session != null && #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}">
+			<div th:if="${#request.getParameter('error') == 'true'}"
+				style="color: red; margin: 10px 0px;">
+				Đăng nhập thất bại!!!<br /> Lý do : <span
+					th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}"></span>
+			</div>
+		</th:block>
+		<div class="row">
+			<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+				<div class="card card-signin my-5">
+					<div class="card-body text-center">
+						<h5 class="card-title text-center">Đăng nhâp</h5>
+						<form method="POST" th:action="@{/j_spring_security_check}">
+							<div class="form-label-group">
+								<input type="text" name="userName" class="form-control"
+									placeholder="Tài khoản" required autofocus> <label
+									for="inputEmail">Tài khoản</label>
+							</div>
+
+							<div class="form-label-group">
+								<input type="password" name="password" class="form-control"
+									placeholder="Mật khẩu" required> <label
+									for="inputPassword">Mật khẩu</label>
+							</div>
+							<div class='wrapper text-center'>
+								<div class="btn" role="group">
+									<button class="btn btn-lg btn-primary"
+										type="submit" value="login">Đăng nhập</button>
+									<button class="btn btn-lg btn-secondary"
+										type="reset" value="Reset">Làm mới</button>
+								</div>
+							</div>
+						</form>
+						<span class="error-message" th:utext="${error}"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</body>
+
+</html>

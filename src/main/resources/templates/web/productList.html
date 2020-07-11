@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/master.html}">
+<head>
+<title>Danh sách sản phẩm</title>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<!-- phân trang -->
+		<nav aria-label="Page navigation example"
+			th:if="${paginationProducts.totalPages > 1}">
+			<ul class="pagination justify-content-center">
+				<th:block th:each="page : ${paginationProducts.navigationPages}">
+					<li class="page-item"><a
+						th:href="@{|/productList?page=${page}|}" th:if="${page != -1}"
+						class="page-link" th:utext="${page}"></a></li>
+				</th:block>
+			</ul>
+		</nav>
+		<div class="container px-10">
+			<div class="row mx-md-n3">
+				<div class="col-4 md-8 mb-5"
+					th:each="prodInfo : ${paginationProducts.list}">
+					<div class="card" style="width: max-2;">
+						<img class="card-img-top"
+							style="width: 100%; height: 20vw; object-fit: cover;"
+							th:src="@{|/productImage?code=${prodInfo.code}|}"
+							alt="Card image cap" />
+						<div class="card-body">
+							<h5 class="card-title">
+								Mã số sản phẩm: <span th:utext="${prodInfo.code}"></span>
+							</h5>
+							<h5 class="card-title">
+								Tên sản phẩm: <span th:utext="${prodInfo.name}"></span>
+							</h5>
+							<h5 class="card-title">
+								Số lượng: <span th:utext="${prodInfo.quantity}"></span>
+							</h5>
+							<h5 class="card-title">
+								Giá: <span
+									th:utext="${#numbers.formatDecimal(prodInfo.price,3,2,'COMMA')}"></span>
+							</h5>
+							<button class="btn btn-info">
+								<a th:href="@{|/buyProduct?code=${prodInfo.code}|}">Mua ngay</a>
+							</button>
+							<button class="btn btn-default">
+								<th:block sec:authorize="hasAuthority('ROLE_MANAGER')">
+									<a th:href="@{|/admin/product?code=${prodInfo.code}|}">Sửa sản phẩm</a>
+								</th:block>
+							</button>
+						</div>
+						<!-- For Manager edit Product -->
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- phân trang -->
+		<nav aria-label="Page navigation example"
+			th:if="${paginationProducts.totalPages > 1}">
+			<ul class="pagination justify-content-center">
+				<th:block th:each="page : ${paginationProducts.navigationPages}">
+					<li class="page-item"><a
+						th:href="@{|/productList?page=${page}|}" th:if="${page != -1}"
+						class="page-link" th:utext="${page}"></a></li>
+				</th:block>
+			</ul>
+		</nav>
+	</div>
+</body>
+
+</html>
